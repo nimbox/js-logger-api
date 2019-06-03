@@ -38,6 +38,14 @@ const jsLOGGER = () => {
 };
 ```
 
+## Updating
+
+```
+npm version patch -m "Version %s - add sweet badges"
+git push && git push --tags
+npm publish
+```
+
 ## And...
 
 Remember to check this to redo the whole thing
