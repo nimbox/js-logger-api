@@ -1,6 +1,6 @@
 {
   "name": "@nimbox/js-logger-api",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Generic JS logging interface",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
