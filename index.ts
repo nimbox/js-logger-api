@@ -19,19 +19,19 @@ class Logger {
         this.log(0, message, ...parameters);
     }
     public error(message: string, ...parameters: any[]) {
-        this.log(0, message, ...parameters);
+        this.log(1, message, ...parameters);
     }
     public warn(message: string, ...parameters: any[]) {
-        this.log(0, message, ...parameters);
+        this.log(2, message, ...parameters);
     }
     public info(message: string, ...parameters: any[]) {
-        this.log(0, message, ...parameters);
+        this.log(3, message, ...parameters);
     }
     public debug(message: string, ...parameters: any[]) {
-        this.log(0, message, ...parameters);
+        this.log(4, message, ...parameters);
     }
     public trace(message: string, ...parameters: any[]) {
-        this.log(0, message, ...parameters);
+        this.log(5, message, ...parameters);
     }
 
 }
