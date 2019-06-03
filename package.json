@@ -1,9 +1,9 @@
 {
-  "name": "js-logger-api",
-  "version": "0.0.1",
+  "name": "@nimbox/js-logger-api",
+  "version": "0.0.4",
   "description": "Generic JS logging interface",
   "main": "dist/index.js",
-  "types" : "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nimbox/js-logger-api.git"
@@ -18,6 +18,7 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {},
   "devDependencies": {
     "typescript": "^3.5.1"
   }

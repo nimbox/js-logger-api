@@ -16,7 +16,7 @@ For this to actually output something there must be a global function
 defined as follows:
 
 ```
-jsLOGGER(category: string | null, level: number, message?: string, ...parameters)
+jsLOGGER(category: string | null, level: number, message: string, ...parameters: any[])
 ```
 
 Where levels are:
@@ -37,3 +37,9 @@ const jsLOGGER = () => {
 
 };
 ```
+
+## And...
+
+Remember to check this to redo the whole thing
+
+https://codeburst.io/https-chidume-nnamdi-com-npm-module-in-typescript-12b3b22f0724
