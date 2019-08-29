@@ -1,13 +1,16 @@
 declare class Logger {
-    category: string | null;
+    private category;
     constructor(category?: string);
     private log;
-    fatal(message: string, ...parameters: any[]): void;
-    error(message: string, ...parameters: any[]): void;
-    warn(message: string, ...parameters: any[]): void;
-    info(message: string, ...parameters: any[]): void;
-    debug(message: string, ...parameters: any[]): void;
-    trace(message: string, ...parameters: any[]): void;
+    fatal(message: string, ...params: any[]): void;
+    error(message: string, ...params: any[]): void;
+    warn(message: string, ...params: any[]): void;
+    info(message: string, ...params: any[]): void;
+    debug(message: string, ...params: any[]): void;
+    trace(message: string, ...params: any[]): void;
+    track(event: string, params: {
+        [key: string]: any;
+    }): void;
 }
 export declare const getLogger: (category?: string | undefined) => Logger;
 export {};

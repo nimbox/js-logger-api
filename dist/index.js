@@ -1,60 +1,36 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Logger = /** @class */ (function () {
-    function Logger(category) {
+class Logger {
+    constructor(category) {
         this.category = category ? category : null;
     }
-    Logger.prototype.log = function (level, message) {
-        var parameters = [];
-        for (var _i = 2; _i < arguments.length; _i++) {
-            parameters[_i - 2] = arguments[_i];
-        }
+    log(level, message, ...params) {
         if (JSLOGGER) {
-            JSLOGGER.apply(void 0, [this.category, level, message].concat(parameters));
+            JSLOGGER(this.category, level, message, ...params);
         }
-    };
-    Logger.prototype.fatal = function (message) {
-        var parameters = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            parameters[_i - 1] = arguments[_i];
+    }
+    fatal(message, ...params) {
+        this.log(0, message, ...params);
+    }
+    error(message, ...params) {
+        this.log(1, message, ...params);
+    }
+    warn(message, ...params) {
+        this.log(2, message, ...params);
+    }
+    info(message, ...params) {
+        this.log(3, message, ...params);
+    }
+    debug(message, ...params) {
+        this.log(4, message, ...params);
+    }
+    trace(message, ...params) {
+        this.log(5, message, ...params);
+    }
+    track(event, params) {
+        if (JSTRACKER) {
+            JSTRACKER(this.category, event, params);
         }
-        this.log.apply(this, [0, message].concat(parameters));
-    };
-    Logger.prototype.error = function (message) {
-        var parameters = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            parameters[_i - 1] = arguments[_i];
-        }
-        this.log.apply(this, [1, message].concat(parameters));
-    };
-    Logger.prototype.warn = function (message) {
-        var parameters = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            parameters[_i - 1] = arguments[_i];
-        }
-        this.log.apply(this, [2, message].concat(parameters));
-    };
-    Logger.prototype.info = function (message) {
-        var parameters = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            parameters[_i - 1] = arguments[_i];
-        }
-        this.log.apply(this, [3, message].concat(parameters));
-    };
-    Logger.prototype.debug = function (message) {
-        var parameters = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            parameters[_i - 1] = arguments[_i];
-        }
-        this.log.apply(this, [4, message].concat(parameters));
-    };
-    Logger.prototype.trace = function (message) {
-        var parameters = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            parameters[_i - 1] = arguments[_i];
-        }
-        this.log.apply(this, [5, message].concat(parameters));
-    };
-    return Logger;
-}());
-exports.getLogger = function (category) { return new Logger(category); };
+    }
+}
+exports.getLogger = (category) => new Logger(category);
