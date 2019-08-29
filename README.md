@@ -39,6 +39,8 @@ Where levels are:
 A basic implementation of the `jsLOGGER` function can be something like this:
 
 ```ts
+import { padEnd, truncate } from 'lodash';
+
 const names = ['fatal', 'error', 'warn', 'info', 'debug', 'trace'];
 const colors = ['red', 'red', 'orange', 'blue', 'green', 'purple'];
 
