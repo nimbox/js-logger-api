@@ -1,8 +1,6 @@
 # js-logger-api
 
-Just interface to logging that does nothing and expects a real logging
-infrastructure to be installed. This api expects a global function that
-deals with the actual logging.  
+A simple interface to logging and event tracking that does nothing and expects a real logging infrastructure to be installed. This api expects two global function that deals with the actual logging: `jsLOGGER` and `jsTRACKER`. When none of these functions are present, no actual logging or tracking occurs.
 
 ## Installation 
 
@@ -14,11 +12,17 @@ npm install @nimbox/js-logger --save
 
 ### Usage
 
+```ts
+import { getLogger } from '@nimbox/js-logger-api';
+const _logger = getLogger('category');
+_logger.info('deleted user %s', user);
+```
+
 For this to actually output something there must be a global function 
 defined as follows:
 
-```
-jsLOGGER(category: string | null, level: number, message: string, ...parameters: any[])
+```ts
+jsLOGGER(category: string | null, level: number, message: string, ...params: any)
 ```
 
 Where levels are:
@@ -34,28 +38,32 @@ Where levels are:
 
 A basic implementation of the `jsLOGGER` function can be something like this:
 
-```
-const jsLOGGER = () => {
+```ts
+const names = ['fatal', 'error', 'warn', 'info', 'debug', 'trace'];
+const colors = ['red', 'red', 'orange', 'blue', 'green', 'purple'];
+
+const jsLOGGER = (category: string | null, level: number, message: string, ...params: any) => {
+
+    const c = truncate(padEnd(category, 32), { length: 32 });
+    const l = padEnd(names[level], 5);
+    const m = sprintf(message, ...parameters)
+
+    console.log(`%c${c} %c[${l}]`, `color:${colors[level]}`, `color:${colors[level]}`, m);
 
 };
 ```
 
-## Eventer
+## Tracker
 
-Eventer is an abstraction to capture events in a common way across all applications and libraries.  We use the same category structure as the logger
+Logger has en special case for events. When logging evetns it is possible to add 
+parameters to the message.
 
 ### Usage
 
-```js
-const _eventer = getEventer('category');
-...
-_eventer.track('some-meaning', object);
-```
-
-The object should be a shallow object in which each key eventually moves to the event storage and its value is an stringification.
-
-```js
-_event.track('query', { value: 'selectCustomers', time: 2212 });
+```ts
+import { getLogger } from '@nimbox/js-logger-api';
+const _logger = getLogger('category');
+_logger.track('query', { value: 'getCustomers', time: 2 });
 ```
 
 Typical names for the keys in the object should be:
@@ -63,10 +71,28 @@ Typical names for the keys in the object should be:
 * `value` - the name of the object associated to the event 
 * `time` - the time it took from begining to end of event in millis
 
+For this to actually output something there must be a global function 
+defined as follows:
+
+```ts
+jsTRACKER(category: string | null, event: string, params?: { [key:string]: any })
+```
+
+## Implementation
+
+Logs and Events have two intended audiences.  Logs are for developers and events are for product managers. Logs show how an application is behaving, events show how a user is using the application.
+
+In most situations the `jsTRACKER` implementation should also create an info log so that the developer knows the events that are being relevant.
+
+```ts
+const jsTRACKER = (category: string | null, event: string, params?: { [key:string]: any }) =>  {
+    jsLOGGER(category, 3, `event ${event} - %j`, params);
+}
+```
 
 ## Updating
 
-```
+```bash
 npm version patch -m "Version %s - add sweet badges"
 git push && git push --tags
 npm publish

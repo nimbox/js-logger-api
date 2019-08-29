@@ -1,37 +1,44 @@
-declare const JSLOGGER: (category: string | null, level: number, message: string, ...parameters: any[]) => void;
+declare const JSLOGGER: (category: string | null, level: number, message: string, ...params: any) => void;
+declare const JSTRACKER: (category: string | null, event: string, params: { [key: string]: any }) => void;
 
 
 class Logger {
 
-    category: string | null;
+    private category: string | null;
 
     constructor(category?: string) {
         this.category = category ? category : null;
     }
 
-    private log(level: number, message: string, ...parameters: any[]) {
+    private log(level: number, message: string, ...params: any[]) {
         if (JSLOGGER) {
-            JSLOGGER(this.category, level, message, ...parameters);
+            JSLOGGER(this.category, level, message, ...params);
         }
     }
 
-    public fatal(message: string, ...parameters: any[]) {
-        this.log(0, message, ...parameters);
+    public fatal(message: string, ...params: any[]) {
+        this.log(0, message, ...params);
     }
-    public error(message: string, ...parameters: any[]) {
-        this.log(1, message, ...parameters);
+    public error(message: string, ...params: any[]) {
+        this.log(1, message, ...params);
     }
-    public warn(message: string, ...parameters: any[]) {
-        this.log(2, message, ...parameters);
+    public warn(message: string, ...params: any[]) {
+        this.log(2, message, ...params);
     }
-    public info(message: string, ...parameters: any[]) {
-        this.log(3, message, ...parameters);
+    public info(message: string, ...params: any[]) {
+        this.log(3, message, ...params);
     }
-    public debug(message: string, ...parameters: any[]) {
-        this.log(4, message, ...parameters);
+    public debug(message: string, ...params: any[]) {
+        this.log(4, message, ...params);
     }
-    public trace(message: string, ...parameters: any[]) {
-        this.log(5, message, ...parameters);
+    public trace(message: string, ...params: any[]) {
+        this.log(5, message, ...params);
+    }
+
+    public track(event: string, params: { [key: string]: any }) {
+        if (JSTRACKER) {
+            JSTRACKER(this.category, event, params);
+        }
     }
 
 }
