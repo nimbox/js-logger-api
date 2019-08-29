@@ -10,7 +10,9 @@ deals with the actual logging.
 npm install @nimbox/js-logger --save
 ```
 
-## Usage
+## Logger
+
+### Usage
 
 For this to actually output something there must be a global function 
 defined as follows:
@@ -28,7 +30,7 @@ Where levels are:
 * 4 - debug
 * 5 - trace
 
-## Implementation
+### Implementation
 
 A basic implementation of the `jsLOGGER` function can be something like this:
 
@@ -37,6 +39,30 @@ const jsLOGGER = () => {
 
 };
 ```
+
+## Eventer
+
+Eventer is an abstraction to capture events in a common way across all applications and libraries.  We use the same category structure as the logger
+
+### Usage
+
+```js
+const _eventer = getEventer('category');
+...
+_eventer.track('some-meaning', object);
+```
+
+The object should be a shallow object in which each key eventually moves to the event storage and its value is an stringification.
+
+```js
+_event.track('query', { value: 'selectCustomers', time: 2212 });
+```
+
+Typical names for the keys in the object should be:
+
+* `value` - the name of the object associated to the event 
+* `time` - the time it took from begining to end of event in millis
+
 
 ## Updating
 
