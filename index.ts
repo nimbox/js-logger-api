@@ -1,5 +1,5 @@
 declare const JSLOGGER: (category: string | null, level: number, message: string, ...params: any) => void;
-declare const JSTRACKER: (category: string | null, event: string, params: { [key: string]: any }) => void;
+declare const JSTRACKER: (category: string | null, event: string, params?: { [key: string]: any }) => void;
 
 
 class Logger {
@@ -35,7 +35,7 @@ class Logger {
         this.log(5, message, ...params);
     }
 
-    public track(event: string, params: { [key: string]: any }) {
+    public track(event: string, params?: { [key: string]: any }) {
         if (JSTRACKER) {
             JSTRACKER(this.category, event, params);
         }

@@ -8,7 +8,7 @@ declare class Logger {
     info(message: string, ...params: any[]): void;
     debug(message: string, ...params: any[]): void;
     trace(message: string, ...params: any[]): void;
-    track(event: string, params: {
+    track(event: string, params?: {
         [key: string]: any;
     }): void;
 }
